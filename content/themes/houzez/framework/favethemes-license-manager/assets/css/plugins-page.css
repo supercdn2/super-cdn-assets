@@ -1,0 +1,1011 @@
+/**
+ * Favethemes Portal Plugins Page Styles
+ */
+
+/* ==========================================================================
+   Hide WordPress Admin Notices
+   ========================================================================== */
+
+body.favethemes-license_page_houzez-portal-plugins .notice:not(.flm-notice),
+body.favethemes-license_page_houzez-portal-plugins .updated:not(.flm-notice),
+body.favethemes-license_page_houzez-portal-plugins .update-nag,
+body.favethemes-license_page_houzez-portal-plugins .error:not(.flm-notice),
+body.favethemes-license_page_houzez-portal-plugins div.error:not(.flm-notice),
+body.favethemes-license_page_houzez-portal-plugins div.updated:not(.flm-notice),
+body.favethemes-license_page_houzez-portal-plugins #wpbody-content > .notice,
+body.favethemes-license_page_houzez-portal-plugins #wpbody-content > .updated,
+body.favethemes-license_page_houzez-portal-plugins #wpbody-content > .error,
+body.favethemes-license_page_houzez-portal-plugins #wpbody-content > .update-nag {
+    display: none !important;
+}
+
+/* Reset and Base */
+.flm-plugins-wrap {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.flm-plugins-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 24px 28px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.flm-plugins-header-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.flm-plugins-header-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7a 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.flm-plugins-header-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.flm-plugins-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.flm-plugins-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0;
+    padding: 0;
+    line-height: 1.3;
+}
+
+.flm-plugins-subtitle {
+    color: #646970;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.flm-refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7a 100%) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 2px 8px rgba(30, 58, 95, 0.25) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+}
+
+.flm-refresh-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.35) !important;
+    background: linear-gradient(135deg, #2a4d7a 0%, #3a5f8f 100%) !important;
+    color: #fff !important;
+}
+
+.flm-refresh-btn:active {
+    transform: translateY(0);
+}
+
+.flm-refresh-btn .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.flm-refresh-btn:hover .dashicons {
+    transform: rotate(180deg);
+}
+
+.flm-refresh-btn.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.flm-refresh-btn.loading .dashicons {
+    animation: flm-spin 1s linear infinite;
+}
+
+@keyframes flm-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Notice */
+.flm-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.flm-notice-warning {
+    background: #fff8e5;
+    border: 1px solid #f0c33c;
+}
+
+.flm-notice .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #996800;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.flm-notice-content strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #1d2327;
+}
+
+.flm-notice-content p {
+    margin: 0 0 12px 0;
+    color: #646970;
+}
+
+/* ==========================================================================
+   Compact Activation Card (for plugins page)
+   ========================================================================== */
+
+.flm-plugins-activation-card.flm-welcome-compact {
+    max-width: 600px;
+    margin: 0 auto 32px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.flm-plugins-activation-card .flm-welcome-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #1e3a5f 0%, #2a4d7a 100%);
+}
+
+.flm-plugins-activation-card .flm-welcome-content {
+    padding: 24px;
+    text-align: center;
+}
+
+.flm-plugins-activation-card .flm-welcome-header-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.flm-plugins-activation-card .flm-welcome-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+}
+
+.flm-plugins-activation-card .flm-welcome-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7a 100%);
+    border-radius: 12px;
+    color: #fff;
+}
+
+.flm-plugins-activation-card .flm-welcome-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.flm-plugins-activation-card .flm-welcome-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.flm-plugins-activation-card .flm-welcome-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.flm-plugins-activation-card .flm-welcome-subtitle {
+    font-size: 14px;
+    color: #646970;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.flm-plugins-activation-card .flm-connect-action {
+    margin-bottom: 0;
+}
+
+.flm-plugins-activation-card .flm-connect-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2a4d7a 100%) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(30, 58, 95, 0.25) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none;
+}
+
+.flm-plugins-activation-card .flm-connect-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(30, 58, 95, 0.35) !important;
+    color: #fff !important;
+}
+
+.flm-plugins-activation-card .flm-connect-button .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Responsive: Tablet and below */
+@media screen and (max-width: 782px) {
+    .flm-plugins-activation-card.flm-welcome-compact {
+        max-width: 100%;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-status {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-text {
+        align-items: center;
+    }
+}
+
+/* Responsive: Mobile */
+@media screen and (max-width: 600px) {
+    .flm-plugins-activation-card.flm-welcome-compact {
+        margin: 0 -10px 24px;
+        border-radius: 8px;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-content {
+        padding: 20px;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-icon .dashicons {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-title {
+        font-size: 16px;
+    }
+
+    .flm-plugins-activation-card .flm-welcome-subtitle {
+        font-size: 13px;
+    }
+
+    .flm-plugins-activation-card .flm-connect-button {
+        width: 100%;
+        padding: 14px 24px !important;
+    }
+}
+
+/* ==========================================================================
+   License Required Banner (compact inline banner for unlicensed users)
+   ========================================================================== */
+
+.flm-license-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    background: #fff8e5;
+    border: 1px solid #f0c33c;
+    border-radius: 8px;
+}
+
+.flm-license-banner > .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #996800;
+    flex-shrink: 0;
+}
+
+.flm-license-banner-text {
+    flex: 1;
+    font-size: 14px;
+    color: #1d2327;
+    font-weight: 500;
+}
+
+.flm-license-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    border-radius: 6px !important;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.flm-license-banner-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+@media screen and (max-width: 600px) {
+    .flm-license-banner {
+        flex-wrap: wrap;
+    }
+
+    .flm-license-banner-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* License Link Button in Plugin Card Footer */
+.flm-license-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    background: #fff !important;
+    border: 1px solid #d97706 !important;
+    color: #d97706 !important;
+}
+
+.flm-license-link:hover {
+    background: #fffbeb !important;
+    border-color: #b45309 !important;
+    color: #b45309 !important;
+}
+
+.flm-license-link .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* Stats Bar */
+.flm-plugins-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.flm-stat-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 100px;
+    transition: all 0.2s ease;
+}
+
+.flm-stat-item:hover {
+    border-color: #2271b1;
+    box-shadow: 0 2px 8px rgba(34, 113, 177, 0.1);
+}
+
+.flm-stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 600;
+    color: #1d2327;
+    line-height: 1.2;
+}
+
+.flm-stat-label {
+    display: block;
+    font-size: 12px;
+    color: #646970;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.flm-stat-active .flm-stat-number { color: #00a32a; }
+.flm-stat-inactive .flm-stat-number { color: #646970; }
+.flm-stat-updates .flm-stat-number { color: #d63638; }
+.flm-stat-required .flm-stat-number { color: #9333ea; }
+
+/* Bulk Actions */
+.flm-bulk-actions {
+    margin-bottom: 24px;
+}
+
+.flm-bulk-actions .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    height: auto;
+}
+
+.flm-bulk-actions .button .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.flm-bulk-actions .button.loading .dashicons {
+    animation: flm-spin 1s linear infinite;
+}
+
+.flm-bulk-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Filter Tabs */
+.flm-plugins-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    background: #f6f7f7;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.flm-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: #50575e;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.flm-filter-btn:hover {
+    background: #fff;
+    color: #1d2327;
+}
+
+.flm-filter-btn.active {
+    background: #fff;
+    color: #2271b1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.flm-filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.flm-filter-btn.active .flm-filter-count {
+    background: #2271b1;
+    color: #fff;
+}
+
+/* Loading State */
+.flm-plugins-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.flm-plugins-loading p {
+    margin: 16px 0 0 0;
+    color: #646970;
+    font-size: 14px;
+}
+
+/* Spinner */
+.flm-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #2271b1;
+    border-radius: 50%;
+    animation: flm-spin 0.8s linear infinite;
+}
+
+/* Error State */
+.flm-plugins-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.flm-plugins-error .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #d63638;
+    margin-bottom: 16px;
+}
+
+.flm-plugins-error p {
+    margin: 0 0 16px 0;
+    color: #646970;
+    font-size: 14px;
+}
+
+/* Empty State */
+.flm-plugins-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.flm-plugins-empty .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #c3c4c7;
+    margin-bottom: 16px;
+}
+
+.flm-plugins-empty p {
+    margin: 0;
+    color: #646970;
+    font-size: 14px;
+}
+
+/* Plugins Grid */
+.flm-plugins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* Plugin Card */
+.flm-plugin-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.flm-plugin-card:hover {
+    border-color: #c3c4c7;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.flm-plugin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 16px 0 16px;
+}
+
+.flm-plugin-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flm-plugin-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+}
+
+.flm-plugin-thumbnail {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.flm-plugin-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flm-plugin-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.flm-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-radius: 9999px;
+}
+
+.flm-badge-update {
+    background: #fef1f1;
+    color: #d63638;
+}
+
+.flm-badge-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #edfaef;
+    color: #00a32a;
+}
+
+.flm-badge-inactive {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f6f7f7;
+    color: #646970;
+}
+
+.flm-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.flm-badge-active .flm-status-dot {
+    background: #00a32a;
+}
+
+.flm-badge-inactive .flm-status-dot {
+    background: #9ca3af;
+}
+
+.flm-badge-required {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+.flm-badge-recommended {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.flm-badge-optional {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.flm-badge-wporg {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.flm-plugin-card-body {
+    padding: 12px 16px;
+}
+
+.flm-plugin-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.flm-plugin-description {
+    font-size: 13px;
+    color: #646970;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.flm-plugin-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.flm-plugin-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #646970;
+}
+
+.flm-plugin-meta .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #a7aaad;
+}
+
+.flm-version-arrow {
+    color: #d63638;
+    font-weight: 600;
+}
+
+.flm-plugin-card-footer {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px 16px;
+    background: transparent;
+    border-top: none;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+
+.flm-plugin-card-footer .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.flm-plugin-card-footer .button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Activate button uses same primary style as Install/Update */
+
+.flm-deactivate-btn {
+    flex: 0 !important;
+    background: #fff !important;
+    border: 1px solid #d0d5dd !important;
+    color: #646970 !important;
+    border-radius: 6px !important;
+}
+
+.flm-deactivate-btn:hover {
+    color: #d63638 !important;
+    background: #fef1f1 !important;
+    border-color: #d63638 !important;
+}
+
+
+/* Card Overlay (Loading State) */
+.flm-plugin-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10;
+}
+
+.flm-plugin-card-overlay .flm-spinner {
+    width: 32px;
+    height: 32px;
+}
+
+.flm-overlay-text {
+    font-size: 13px;
+    color: #1d2327;
+    font-weight: 500;
+}
+
+/* Success/Error states for card */
+.flm-plugin-card.success {
+    border-color: #00a32a;
+}
+
+.flm-plugin-card.error {
+    border-color: #d63638;
+}
+
+/* Priority card accent bars - subtle left border only */
+.flm-plugin-card.flm-priority-required {
+    border-left: 3px solid #7c3aed;
+}
+
+.flm-plugin-card.flm-priority-recommended {
+    border-left: 3px solid #d97706;
+}
+
+.flm-plugin-card.flm-priority-optional {
+    border-left: 3px solid #9ca3af;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .flm-plugins-wrap {
+        padding: 0 10px;
+    }
+
+    .flm-plugins-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 20px;
+    }
+
+    .flm-plugins-header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .flm-plugins-header-icon {
+        margin: 0 auto;
+    }
+
+    .flm-plugins-header-text {
+        align-items: center;
+    }
+
+    .flm-plugins-header h1 {
+        font-size: 20px;
+    }
+
+    .flm-plugins-header-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .flm-plugins-stats {
+        flex-wrap: wrap;
+    }
+
+    .flm-stat-item {
+        flex: 1;
+        min-width: 80px;
+        padding: 12px 16px;
+    }
+
+    .flm-stat-number {
+        font-size: 22px;
+    }
+
+    .flm-plugins-filters {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .flm-filter-btn {
+        white-space: nowrap;
+    }
+
+    .flm-plugins-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Button Primary Override */
+.flm-plugins-wrap .button-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.flm-plugins-wrap .button-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+}
+
+.flm-plugins-wrap .button-primary:focus {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2271b1;
+}
+
+/* Action button states */
+.flm-action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
