@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'rbi-dash';
+    src: url('../admin/assets/rbi-dash.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.rbi-dash {
+    font-family: 'rbi-dash';
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-transform: none;
+    speak: never;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#wpadminbar #wp-admin-bar-customize > .ab-item:before {
+    font-family: 'rbi-dash';
+    font-size: 16px;
+    line-height: 21px;
+    content: '\e900';
+}
+
+#wpadminbar #wp-admin-bar-ruby-options > .ab-item:before {
+    font-family: 'rbi-dash';
+    font-size: 16px;
+    line-height: 24px;
+    content: '\e904';
+}
