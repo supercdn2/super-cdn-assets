@@ -1,0 +1,494 @@
+/* ══════════════════════════════════════════════════════════════
+   MeteoWorld Widget — CSS Principal v1.1
+   4 thèmes : cinematic | light | glass | dynamic
+   Corrections : compacité, scroll horaire, plein écran robuste
+   ══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+.mww-widget *, .mww-widget *::before, .mww-widget *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VARIABLES PAR THÈME
+   ══════════════════════════════════════════════════════════════ */
+.mww-theme-cinematic {
+  --bg: #0b0f1a; --bg2: #131929;
+  --card: rgba(16,22,40,0.92);
+  --glass: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.10);
+  --text: #f0f4ff; --text-muted: rgba(240,244,255,0.55);
+  --accent: #4f9eff; --accent2: #ff6b6b; --temp-color: #ffd166;
+  --progress-bg: rgba(255,255,255,0.15); --progress-fill: #4f9eff;
+  --shadow: 0 20px 60px rgba(0,0,0,0.6);
+  --radius: 16px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+.mww-theme-light {
+  --bg: #f4f7fb; --bg2: #e8eef7;
+  --card: rgba(255,255,255,0.95);
+  --glass: rgba(255,255,255,0.7);
+  --border: rgba(0,0,0,0.08);
+  --text: #1a2235; --text-muted: rgba(26,34,53,0.50);
+  --accent: #2563eb; --accent2: #f97316; --temp-color: #ea580c;
+  --progress-bg: rgba(0,0,0,0.10); --progress-fill: #2563eb;
+  --shadow: 0 10px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+.mww-theme-glass {
+  --bg: linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+  --bg2: transparent;
+  --card: rgba(255,255,255,0.08);
+  --glass: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.18);
+  --text: #ffffff; --text-muted: rgba(255,255,255,0.60);
+  --accent: #e94560; --accent2: #0f3460; --temp-color: #ffd700;
+  --progress-bg: rgba(255,255,255,0.20); --progress-fill: #e94560;
+  --shadow: 0 8px 32px rgba(31,38,135,0.37);
+  --radius: 18px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+.mww-theme-dynamic {
+  --bg: #0a0a0a; --bg2: #111111;
+  --card: rgba(0,0,0,0.55);
+  --glass: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.12);
+  --text: #ffffff; --text-muted: rgba(255,255,255,0.60);
+  --accent: #00d2ff; --accent2: #ff6b35; --temp-color: #ffcf44;
+  --progress-bg: rgba(255,255,255,0.15); --progress-fill: #00d2ff;
+  --shadow: 0 20px 60px rgba(0,0,0,0.7);
+  --radius: 16px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STRUCTURE PRINCIPALE
+   ══════════════════════════════════════════════════════════════ */
+.mww-widget {
+  width: 100%;
+  max-width: 380px;
+  font-family: var(--font-body);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+  background: var(--bg);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Slides container ──────────────────────────────────────── */
+.mww-slides {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.mww-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(30px);
+  display: flex;
+  flex-direction: column;
+}
+.mww-slide.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+.mww-slide.exit-left  { transform: translateX(-30px); }
+.mww-slide.exit-right { transform: translateX(30px); }
+.mww-transition-fade .mww-slide { transform: none !important; }
+.mww-transition-zoom .mww-slide { transform: scale(0.97) !important; }
+.mww-transition-zoom .mww-slide.active { transform: scale(1) !important; }
+
+/* ── Image de ville (compactée) ───────────────────────────── */
+.mww-city-image {
+  position: relative;
+  width: 100%;
+  height: 170px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--bg2);
+}
+.mww-city-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 6s ease;
+}
+.mww-slide.active .mww-city-image img { transform: scale(1.05); }
+.mww-city-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.78) 100%);
+  pointer-events: none;
+}
+.mww-img-skeleton {
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, var(--bg2) 0%, var(--glass) 50%, var(--bg2) 100%);
+  background-size: 200% 100%;
+  animation: mww-shimmer 1.5s infinite;
+  position: absolute; inset: 0;
+}
+@keyframes mww-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.mww-city-overlay {
+  position: absolute;
+  bottom: 10px; left: 14px; right: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.mww-city-name {
+  font-family: var(--font-display);
+  font-size: 21px; font-weight: 700; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.85);
+  line-height: 1.05;
+}
+.mww-city-country {
+  font-size: 10px; font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  margin-top: 1px;
+}
+.mww-temp-hero {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 300; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  line-height: 1;
+}
+.mww-temp-hero sup { font-size: 15px; font-weight: 500; }
+
+/* ── Contenu principal (espacements réduits) ─────────────── */
+.mww-content {
+  background: var(--card);
+  padding: 11px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  max-height: 340px;
+  scrollbar-width: thin;
+}
+.mww-content::-webkit-scrollbar { width: 4px; }
+.mww-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.mww-meta-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.mww-weather-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 16px; padding: 4px 10px;
+  font-size: 11px; color: var(--text); font-weight: 500;
+}
+.mww-weather-icon { font-size: 14px; }
+.mww-local-time { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.mww-local-time span { font-weight: 600; color: var(--accent); }
+
+/* ── Stats météo ──────────────────────────────────────────── */
+.mww-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.mww-stat {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 10px; padding: 6px 4px;
+  text-align: center; display: flex; flex-direction: column; gap: 2px;
+}
+.mww-stat-icon { font-size: 13px; line-height: 1; }
+.mww-stat-val { font-size: 12px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.mww-stat-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+
+/* ── Prévisions horaires — SCROLL HORIZONTAL GARANTI ────────── */
+.mww-hourly-wrap { position: relative; }
+.mww-hourly {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  cursor: grab;
+}
+.mww-hourly:active { cursor: grabbing; }
+.mww-hourly::-webkit-scrollbar { height: 4px; }
+.mww-hourly::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.mww-hourly::-webkit-scrollbar-track { background: transparent; }
+.mww-hourly-inner {
+  display: flex;
+  gap: 6px;
+  width: max-content; /* FORCE le contenu à dépasser pour activer le scroll */
+  padding: 2px 2px 6px;
+}
+.mww-hour-item {
+  flex: 0 0 46px;
+  scroll-snap-align: start;
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 10px; padding: 6px 3px;
+  text-align: center; display: flex; flex-direction: column; gap: 3px; align-items: center;
+}
+.mww-hour-item.now { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.mww-hour-time { font-size: 9px; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mww-hour-icon { font-size: 14px; }
+.mww-hour-temp { font-size: 12px; font-weight: 600; color: var(--text); }
+.mww-hour-precip { font-size: 8px; color: var(--accent); }
+
+/* Indicateur visuel "scrollable" (fondu sur les bords) */
+.mww-hourly-wrap::after {
+  content: '';
+  position: absolute; top: 0; right: 0; bottom: 6px;
+  width: 18px;
+  background: linear-gradient(to right, transparent, var(--card));
+  pointer-events: none;
+}
+
+/* ── Prévisions journalières (limitées à 5 jours, compact) ──── */
+.mww-daily-wrap { display: flex; flex-direction: column; gap: 4px; }
+.mww-daily { display: flex; flex-direction: column; gap: 4px; }
+.mww-day-row {
+  display: grid;
+  grid-template-columns: 38px 16px 1fr auto auto;
+  align-items: center; gap: 6px;
+  padding: 5px 8px;
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 11px;
+}
+.mww-day-name { color: var(--text); font-weight: 600; font-size: 10px; }
+.mww-day-icon { font-size: 13px; text-align: center; }
+.mww-day-label { color: var(--text-muted); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mww-day-max { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; font-size: 11px; }
+.mww-day-min { color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 10px; }
+
+/* ── Texte IA ──────────────────────────────────────────────── */
+.mww-ai-text {
+  background: var(--glass); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: 8px 10px;
+  font-size: 10.5px; line-height: 1.55; color: var(--text-muted);
+  font-style: italic; position: relative;
+}
+.mww-ai-badge {
+  display: block;
+  font-size: 8px; color: var(--accent); font-style: normal;
+  font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 3px; opacity: 0.85;
+}
+
+/* ── Soleil lever/coucher ─────────────────────────────────── */
+.mww-sun-row {
+  display: flex; justify-content: space-around; align-items: center;
+  padding: 6px 0; border-top: 1px solid var(--border);
+}
+.mww-sun-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
+.mww-sun-item span:first-child { font-size: 13px; }
+.mww-sun-item strong { color: var(--temp-color); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVIGATION & CONTRÔLES (compactés)
+   ═══════════════════════════════════════════════════════════════ */
+.mww-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 13px 8px;
+  background: var(--card);
+  gap: 8px;
+  flex-shrink: 0;
+}
+.mww-progress-bar { flex: 1; height: 3px; background: var(--progress-bg); border-radius: 2px; overflow: hidden; }
+.mww-progress-fill { height: 100%; background: var(--progress-fill); border-radius: 2px; width: 0%; transition: width linear; }
+.mww-dots { display: flex; gap: 4px; align-items: center; flex-shrink: 0; max-width: 90px; overflow-x: auto; scrollbar-width: none; }
+.mww-dots::-webkit-scrollbar { display: none; }
+.mww-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; flex-shrink: 0; transition: all 0.25s ease; }
+.mww-dot.active { width: 14px; border-radius: 3px; background: var(--accent); }
+.mww-nav-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--glass); color: var(--text);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; transition: all 0.2s ease; flex-shrink: 0;
+}
+.mww-nav-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: scale(1.1); }
+
+/* ── Toolbar (son + musique + plein écran) ──────────────────── */
+.mww-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 13px 10px;
+  background: var(--card);
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.mww-toolbar-left, .mww-toolbar-right { display: flex; align-items: center; gap: 6px; }
+.mww-tool-btn {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  background: none; border: 1px solid var(--border); border-radius: 14px;
+  width: 28px; height: 28px;
+  font-size: 12px; color: var(--text-muted); cursor: pointer;
+  transition: all 0.2s; font-family: var(--font-body); flex-shrink: 0;
+}
+.mww-tool-btn:hover { color: var(--text); border-color: var(--accent); }
+.mww-tool-btn.active { color: var(--accent); border-color: var(--accent); }
+
+.mww-music-select {
+  background: var(--glass); border: 1px solid var(--border); border-radius: 12px;
+  padding: 4px 6px; font-size: 10px; color: var(--text); max-width: 110px;
+  font-family: var(--font-body); cursor: pointer;
+}
+.mww-music-select option { background: var(--bg); color: var(--text); }
+
+.mww-volume {
+  -webkit-appearance: none; width: 50px; height: 3px;
+  background: var(--progress-bg); border-radius: 2px; outline: none; flex-shrink: 0;
+}
+.mww-volume::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PLEIN ÉCRAN — version robuste, compatible API native + fallback CSS
+   ═══════════════════════════════════════════════════════════════ */
+.mww-widget.mww-fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  z-index: 2147483647 !important; /* max z-index, passe au-dessus de tout thème WP */
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--bg);
+}
+
+/* En plein écran : slides prennent toute la hauteur dispo */
+.mww-widget.mww-fullscreen .mww-slides { flex: 1; min-height: 0; }
+.mww-widget.mww-fullscreen .mww-slide { height: 100%; }
+.mww-widget.mww-fullscreen .mww-city-image { height: 40vh; flex-shrink: 0; }
+.mww-widget.mww-fullscreen .mww-content {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 28px;
+  max-height: none;
+  flex: 1;
+  gap: 14px;
+}
+.mww-widget.mww-fullscreen .mww-city-name { font-size: 34px; }
+.mww-widget.mww-fullscreen .mww-city-country { font-size: 13px; }
+.mww-widget.mww-fullscreen .mww-temp-hero { font-size: 58px; }
+.mww-widget.mww-fullscreen .mww-stats-grid { grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.mww-widget.mww-fullscreen .mww-stat { padding: 12px 8px; }
+.mww-widget.mww-fullscreen .mww-stat-val { font-size: 16px; }
+.mww-widget.mww-fullscreen .mww-stat-label { font-size: 10px; }
+.mww-widget.mww-fullscreen .mww-hour-item { flex: 0 0 64px; padding: 10px 6px; }
+.mww-widget.mww-fullscreen .mww-ai-text { font-size: 13px; padding: 14px 18px; }
+.mww-widget.mww-fullscreen .mww-day-row { font-size: 13px; padding: 8px 12px; }
+.mww-widget.mww-fullscreen .mww-controls,
+.mww-widget.mww-fullscreen .mww-toolbar { max-width: 720px; margin: 0 auto; width: 100%; }
+
+/* Empêche le scroll de la page derrière le widget en plein écran */
+body:has(.mww-widget.mww-fullscreen) { overflow: hidden; }
+
+.mww-fs-close {
+  position: fixed; top: 16px; right: 20px;
+  z-index: 2147483647;
+  background: rgba(0,0,0,0.65); color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%; width: 36px; height: 36px;
+  display: none; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; transition: background 0.2s;
+}
+.mww-fs-close:hover { background: rgba(0,0,0,0.85); }
+.mww-widget.mww-fullscreen .mww-fs-close { display: flex; }
+
+/* Support de l'API Fullscreen native (F11 / requestFullscreen) */
+.mww-widget:fullscreen,
+.mww-widget:-webkit-full-screen,
+.mww-widget:-ms-fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+.mww-widget:fullscreen .mww-content,
+.mww-widget:-webkit-full-screen .mww-content {
+  max-height: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THÈME GLASS — backdrop-filter
+   ═══════════════════════════════════════════════════════════════ */
+.mww-theme-glass .mww-content,
+.mww-theme-glass .mww-controls,
+.mww-theme-glass .mww-toolbar {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+.mww-theme-glass .mww-stat,
+.mww-theme-glass .mww-hour-item,
+.mww-theme-glass .mww-day-row,
+.mww-theme-glass .mww-ai-text,
+.mww-theme-glass .mww-weather-badge {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THÈME DYNAMIC — overlay selon météo
+   ═══════════════════════════════════════════════════════════════ */
+.mww-theme-dynamic .mww-city-image[data-wclass="sunny"]::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg,rgba(255,180,0,0.16),transparent); z-index:1; }
+.mww-theme-dynamic .mww-city-image[data-wclass="rainy"]::before,
+.mww-theme-dynamic .mww-city-image[data-wclass="stormy"]::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg,rgba(0,80,160,0.2),transparent); z-index:1; }
+.mww-theme-dynamic .mww-city-image[data-wclass="snowy"]::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg,rgba(200,230,255,0.2),transparent); z-index:1; }
+
+/* ── Loader ────────────────────────────────────────────────── */
+.mww-loader {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; min-height: 380px; color: var(--text-muted); font-size: 12px; background: var(--bg);
+}
+.mww-spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: mww-spin 0.8s linear infinite; }
+@keyframes mww-spin { to { transform: rotate(360deg); } }
+
+/* ── Animations d'apparition ──────────────────────────────── */
+@keyframes mww-fadeup { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.mww-slide.active .mww-content > * { animation: mww-fadeup 0.4s ease both; }
+.mww-slide.active .mww-content > *:nth-child(1) { animation-delay: 0.03s; }
+.mww-slide.active .mww-content > *:nth-child(2) { animation-delay: 0.06s; }
+.mww-slide.active .mww-content > *:nth-child(3) { animation-delay: 0.09s; }
+.mww-slide.active .mww-content > *:nth-child(4) { animation-delay: 0.12s; }
+.mww-slide.active .mww-content > *:nth-child(5) { animation-delay: 0.15s; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 400px) {
+  .mww-city-name { font-size: 18px; }
+  .mww-temp-hero { font-size: 30px; }
+  .mww-stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .mww-city-image { height: 150px; }
+  .mww-content { max-height: 300px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mww-slide, .mww-slide.active .mww-content > *, .mww-city-image img { transition: none !important; animation: none !important; }
+}
+
+.mww-theme-cinematic .mww-dot.active { box-shadow: 0 0 6px var(--accent); }
+.mww-theme-cinematic .mww-weather-badge { box-shadow: 0 0 0 1px var(--accent) inset; }
