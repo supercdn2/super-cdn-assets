@@ -1,0 +1,7 @@
+/* Video demo */
+.td-newsmag-video #td-theme-settings .td-skin-buy a {
+  background-color: #f8c900;
+}
+.td-newsmag-video.paged .td-category-header {
+  border: none;
+}
